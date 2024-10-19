@@ -18,10 +18,10 @@ Get-AzSubscription
 
 ### Create a new RBAC role assignment:
 ```
-MSYS_NO_PATHCONV=1 az role assignment create \
-  --assignee "developer@<aad-tenant-name>" \
-  --role "Contributor" \
-  --scope $subscriptionId
+az role assignment create `
+  --assignee "developer@<entra-tenant>" `
+  --role "Contributor" `
+  --scope subscriptions/<yourSubscriptionId>
 ```
 
 ### List the RBAC roles assigned to account:
