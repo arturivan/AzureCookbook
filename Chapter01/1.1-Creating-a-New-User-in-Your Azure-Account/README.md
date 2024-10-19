@@ -1,22 +1,19 @@
-# Creating a New User in Your Azure Account
-
+# Creating a New User in Your Azure Account 
+Scripts are converted to Powershell syntax
 
 ### Create a new user in your Azure Active Directory:
 ```
-password="<password>"
+$password="<password>"
 
-az ad user create \
-  --display-name developer \
-  --password $password \
+az ad user create `
+  --display-name developer `
+  --password $password `
   --user-principal-name developer@<aad-tenant-name>
 ```
 
 ### Get the subscription id:
 ```
-subscriptionId=$(az account show \
-  --query "id" --output tsv)
-
-subscriptionScope="/subscriptions/"$subscriptionId
+Get-AzSubscription
 ```
 
 ### Create a new RBAC role assignment:
