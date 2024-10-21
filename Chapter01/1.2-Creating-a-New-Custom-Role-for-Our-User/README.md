@@ -2,6 +2,10 @@
 
 ### Get the subscription id
 ```
+Powershell:
+Get-AzSubscription
+
+Bash:
 subscriptionId=$(az account show \
   --query "id" --output tsv)
 
