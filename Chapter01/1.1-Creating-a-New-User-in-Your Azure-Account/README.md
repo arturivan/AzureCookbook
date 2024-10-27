@@ -1,14 +1,22 @@
 # Creating a New User in Your Azure Account 
-Scripts are converted to Powershell syntax
+Scripts are converted to Azure Powershell syntax
 
-### Create a new user in your Azure Active Directory:
+### Create a new user in your Entra ID:
 ```
-$password="<password>"
+Connect-Entra -Scopes 'User.ReadWrite.All'
+$PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
+$PasswordProfile.Password = '<Password>'
 
-az ad user create `
-  --display-name developer `
-  --password $password `
-  --user-principal-name developer@<aad-tenant-name>
+$userParams = @{
+    DisplayName       = 'Blake Martin'
+    PasswordProfile   = $PasswordProfile
+    UserPrincipalName = 'user@<entra-tenant>' # BlakeM@contoso.com
+    AccountEnabled    = $true
+    MailNickName      = 'BlakeM'
+    City              = 'New York'
+}
+
+New-EntraUser @userParams
 ```
 
 ### Get the subscription id:
@@ -18,23 +26,23 @@ Get-AzSubscription
 
 ### Create a new RBAC role assignment:
 ```
-az role assignment create `
-  --assignee "developer@<entra-tenant>" `
-  --role "Contributor" `
+New-AzRoleAssignment `
+  --SignInName "developer@<entra-tenant>" `
+  --RoleDefinitionName "Contributor" `
   --scope subscriptions/<yourSubscriptionId>
 ```
 
 ### List the RBAC roles assigned to account:
 ```
-az role assignment list `
-  --assignee developer@<entra-tenant> 
+Get-AzRoleAssignment `
+  --SignInName developer@<entra-tenant> 
 ```
 
 # Cleanup
 
 Deleting the RBAC role assignment:
 ```
-az role assignment delete `
-  --assignee "developer@<entra-tenant>" `
-  --role "Contributor"
+Remove-AzRoleAssignment `
+  --SignInName "developer@<entra-tenant>" `
+  --RoleDefinitionName "Contributor"
 ```
