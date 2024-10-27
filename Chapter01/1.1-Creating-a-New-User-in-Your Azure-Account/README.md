@@ -27,15 +27,15 @@ Get-AzSubscription
 ### Create a new RBAC role assignment:
 ```
 New-AzRoleAssignment `
-  --SignInName "developer@<entra-tenant>" `
-  --RoleDefinitionName "Contributor" `
-  --scope subscriptions/<yourSubscriptionId>
+  -SignInName "user@<entra-tenant>" `
+  -RoleDefinitionName "Contributor" `
+  -scope subscriptions/<yourSubscriptionId>
 ```
 
 ### List the RBAC roles assigned to account:
 ```
 Get-AzRoleAssignment `
-  --SignInName developer@<entra-tenant> 
+  -SignInName developer@<entra-tenant> 
 ```
 
 # Cleanup
@@ -43,6 +43,6 @@ Get-AzRoleAssignment `
 Deleting the RBAC role assignment:
 ```
 Remove-AzRoleAssignment `
-  --SignInName "developer@<entra-tenant>" `
-  --RoleDefinitionName "Contributor"
+  -SignInName "developer@<entra-tenant>" `
+  -RoleDefinitionName "Contributor"
 ```
